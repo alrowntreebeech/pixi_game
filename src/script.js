@@ -1,7 +1,11 @@
-import {Assets, Application, Sprite, Texture, Rectangle} from "pixi.js";
+import {Assets, Application, Sprite} from "pixi.js";
 
 const app = new Application({
-    resizeTo: window
+    width: 512,
+    height: 512,
+    antialias: true,
+    transparent: false,
+    resolution: 1
 });
 
 app.renderer.view.style.position = "absolute";
@@ -9,22 +13,24 @@ app.renderer.view.style.display = "block";
 
 document.body.appendChild(app.view);
 
+let dungeon, explorer, treasure, door, id;
 
+// Load Assets
 Assets.load([
-    "images/tileset.png",
-    "images/cat.png",
+    "images/treasureHunter.json"
 ]).then(() => {
-    const texture = Texture.from("images/tileset.png");
-    const rectangle = new Rectangle(192, 128, 64, 64);
+    dungeon = Sprite.from("dungeon.png");
+    app.stage.addChild(dungeon);
 
-    texture.frame = rectangle;
+    explorer = Sprite.from("explorer.png");
+    explorer.x = 68;
+    explorer.y = app.stage.height / 2 - explorer.height / 2;
+    app.stage.addChild(explorer);
 
-    const rocket = new Sprite(texture);
-
-    rocket.x = app.screen.width / 2;
-    rocket.y = app.screen.height / 2;
-
-    app.stage.addChild(rocket);
+    treasure = Sprite.from("treasure.png");
+    treasure.x = app.stage.width - treasure.width - 48;
+    treasure.y = app.stage.height / 2;
+    app.stage.addChild(treasure);
 
     app.renderer.render(app.stage);
 });
