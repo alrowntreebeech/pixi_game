@@ -1,4 +1,6 @@
-import {Assets, Application, Sprite, MeshBatchUvs} from "pixi.js";
+import {Assets, Application, Sprite} from "pixi.js";
+
+
 
 const app = new Application({
     width: 512,
@@ -8,8 +10,6 @@ const app = new Application({
     resolution: 1
 });
 
-app.renderer.view.style.position = "absolute";
-app.renderer.view.style.display = "block";
 
 document.body.appendChild(app.view);
 
@@ -37,6 +37,10 @@ Assets.load([
     treasure.y = app.stage.height / 2;
     app.stage.addChild(treasure);
 
+    door = Sprite.from("door.png");
+    door.position.set(32, 0);
+    app.stage.addChild(door);
+
     const numberOfBlobs = 6;
     const spacing = 48;
     const xOffset = 150;
@@ -57,5 +61,5 @@ Assets.load([
 
     }
 
-    app.renderer.render(app.stage);
+
 });
